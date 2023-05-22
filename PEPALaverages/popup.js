@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             stats.appendChild(bar);
                         }
                     
-                        // Ajoute 30px supplémentaires pour l'espacement en bas
                         document.body.style.height = `${60 + numOfBars * 30 + 10}px`;
                     }
                     
