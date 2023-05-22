@@ -5,7 +5,6 @@ function getColorBasedOnAverage(average) {
     return color;
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
     let calculateButton = document.getElementById('calculate');
     let showStatsCheckbox = document.getElementById('show-stats-checkbox');
@@ -18,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if(showStatsCheckbox.checked) {
                         document.body.classList.add('show-stats'); 
-                        
+                    
                         let stats = document.getElementById('stats');
-                        stats.innerHTML = '';  
-
+                        stats.innerHTML = '';
+                        let numOfBars = 0;  
+                    
                         for (let subject in response.averages) {
+                            numOfBars++; 
                             let bar = document.createElement('div');
                             bar.className = 'bar';
                             bar.style.width = (response.averages[subject].average * 15) + 'px';  
@@ -34,8 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             bar.appendChild(label);
                             stats.appendChild(bar);
                         }
-                        
+                    
+                        // Ajoute 30px supplémentaires pour l'espacement en bas
+                        document.body.style.height = `${60 + numOfBars * 30 + 10}px`;
                     }
+                    
                 });
             });
         });
