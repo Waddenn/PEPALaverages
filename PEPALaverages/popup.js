@@ -26,15 +26,23 @@ document.addEventListener('DOMContentLoaded', function() {
                             numOfBars++; 
                             let bar = document.createElement('div');
                             bar.className = 'bar';
-                            bar.style.width = (response.averages[subject].average * 15) + 'px';  
+                            let barWidth = (response.averages[subject].average * 15);
+                            bar.style.width = barWidth + 'px';  
                             bar.style.backgroundColor = getColorBasedOnAverage(response.averages[subject].average);  
                             let label = document.createElement('div');
                             label.className = 'label';
                             label.innerText = `${subject}: ${response.averages[subject].average}`;
-                    
+                            
+                            // Check if the bar width is short
+                            if(barWidth < 100) { // 100 is the minimum width for the label to fit inside the bar
+                                label.style.left = (barWidth + 10) + 'px'; // Move the label to the right of the bar
+                                label.style.color = '#FFFFFF'; // Change label color to white
+                            }
+                        
                             bar.appendChild(label);
                             stats.appendChild(bar);
                         }
+                        
                     
                         document.body.style.height = `${60 + numOfBars * 30 + 10}px`;
                     }
