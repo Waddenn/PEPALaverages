@@ -1,64 +1,84 @@
-function getColorBasedOnAverage(average) {
-    let percentage = average / 20;
-    let hue = Math.round(200 * percentage);
-    let color = `hsl(${hue}, 80%, 50%)`;
-    return color;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    let calculateButton = document.getElementById('calculate');
-    let showStatsCheckbox = document.getElementById('show-stats-checkbox');
-    let result = document.getElementById('result');
+function initializePopup() {
+    const calculateButton = document.getElementById('calculate');
+    const showStatsCheckbox = document.getElementById('show-stats-checkbox');
+    const result = document.getElementById('result');
 
     if (calculateButton) {
-        calculateButton.addEventListener('click', function() {
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                chrome.tabs.sendMessage(tabs[0].id, {message: "calculate_average"}, function(response) {
-                    if (chrome.runtime.lastError) {
-                        result.innerText = 'Wrong page!';
-                        result.style.color = 'red';
-                        result.style.fontSize = '14px'; 
-                    } else {
-                        if(response.error) {
-                            result.innerText = response.error;
-                            result.style.color = 'red';
-                            result.style.fontSize = '14px'; 
-                        } else {
-                            result.innerText = response.average;
-                            result.style.fontSize = '30px'; 
-                            if(showStatsCheckbox.checked) {
-                                document.body.classList.add('show-stats'); 
+        calculateButton.addEventListener('click', handleCalculateButtonClick);
+    }
 
-                                let stats = document.getElementById('stats');
-                                stats.innerHTML = '';
-                                let numOfBars = 0;  
-
-                                for (let subject in response.averages) {
-                                    numOfBars++; 
-                                    let bar = document.createElement('div');
-                                    bar.className = 'bar';
-                                    let barWidth = (response.averages[subject].average * 15);
-                                    bar.style.width = barWidth + 'px';  
-                                    bar.style.backgroundColor = getColorBasedOnAverage(response.averages[subject].average);  
-                                    let label = document.createElement('div');
-                                    label.className = 'label';
-                                    label.innerText = `${subject}: ${response.averages[subject].average}`;
-
-                                    if(barWidth < 130) { 
-                                        label.style.left = (barWidth + 10) + 'px'; 
-                                        label.style.color = '#FFFFFF'; 
-                                    }
-
-                                    bar.appendChild(label);
-                                    stats.appendChild(bar);
-                                }
-
-                                document.body.style.height = `${60 + numOfBars * 30 + 10}px`;
-                            }
-                        }
-                    }
-                });
+    function handleCalculateButtonClick() {
+        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, {message: "calculate_average"}, (response) => {
+                handleResponse(response, showStatsCheckbox, result);
             });
         });
     }
-});
+
+    function handleResponse(response, checkbox, resultElement) {
+        if (chrome.runtime.lastError) {
+            displayError(resultElement);
+        } else if (response.error) {
+            displayError(resultElement, response.error);
+        } else {
+            displayResults(response, checkbox, resultElement);
+        }
+    }
+
+    function displayError(element, message = 'Wrong page!') {
+        element.innerText = message;
+        element.style.color = 'red';
+        element.style.fontSize = '14px';
+    }
+
+    function displayResults(response, checkbox, element) {
+        element.innerText = response.average;
+        element.style.fontSize = '30px';
+        if (checkbox.checked) {
+            document.body.classList.add('show-stats'); 
+            displayStats(response);
+        }
+    }
+    
+
+    function displayStats(response) {
+        const stats = document.getElementById('stats');
+        stats.innerHTML = '';
+        let numOfBars = Object.keys(response.averages).length;
+
+        for (let subject in response.averages) {
+            const bar = createBar(response.averages[subject].average, subject);
+            stats.appendChild(bar);
+        }
+
+        document.body.style.height = `${60 + numOfBars * 30 + 10}px`;
+    }
+
+    function createBar(average, subject) {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+
+        const barWidth = average * 15;
+        bar.style.width = `${barWidth}px`;
+        bar.style.backgroundColor = getColorBasedOnAverage(average);
+
+        const label = document.createElement('div');
+        label.className = 'label';
+        label.innerText = `${subject}: ${average}`;
+
+        if (barWidth < 130) {
+            label.style.left = `${barWidth + 10}px`;
+            label.style.color = '#FFFFFF';
+        }
+
+        bar.appendChild(label);
+        return bar;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initializePopup);
+
+function getColorBasedOnAverage(average) {
+    const hue = Math.round((average / 20) * 200);
+    return `hsl(${hue}, 80%, 50%)`;
+}

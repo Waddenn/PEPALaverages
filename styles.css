@@ -1,0 +1,100 @@
+/* ===============================================
+   BASE STYLES
+   =============================================== */
+
+   body {
+    width: 150px;
+    height: 60px;
+    margin: 20px;
+    overflow: hidden;
+    color: white;
+    background-color: #161c26;
+    scrollbar-width: thin;
+    scrollbar-color: #316e7d #161c26;
+  }
+  
+  body::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #161c26;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #316e7d;
+    border-radius: 20px;
+    border: 3px solid #161c26;
+  }
+  
+  /* ===============================================
+     BUTTON STYLES
+     =============================================== */
+  
+  #calculate {
+    background-color: #316e7d;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #calculate:hover {
+    background-color: #265561;
+  }
+  
+  /* ===============================================
+     RESULTS STYLES
+     =============================================== */
+  
+  #result {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 5px;
+  }
+  
+  /* ===============================================
+     BAR STYLES
+     =============================================== */
+  
+  .bar {
+    height: 20px;
+    margin: 0 10px 10px 0;
+    background-color: #ddd;
+    position: relative;
+    display: none;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .bar:hover {
+    transform: translateX(10px);
+  }
+  
+  .label {
+    position: absolute;
+    left: 10px;
+    color: #161c26;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  
+  /* ===============================================
+     STATS VIEW STYLES
+     =============================================== */
+  
+  body.show-stats {
+    width: 310px;
+  }
+  
+  body.show-stats .bar {
+    display: block;
+  }
+  
