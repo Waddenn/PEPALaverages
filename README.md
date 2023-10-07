@@ -1,6 +1,6 @@
 # PepalAverages - Chromium Extension
 
-**PepalAverages** is a dedicated extension crafted to compute and showcase both grade and subject averages. The calculations are driven by coefficients provided within an HTML table on Pepal.
+**PepalAverages** is a dedicated chromium extension crafted to compute and showcase both grade and subject averages. The calculations are driven by coefficients provided within an HTML table on Pepal.
 
 🔗 [Get the extension here](https://chrome.google.com/webstore/detail/pepalaverages/nccddomlinfljbbfdcieiajkkkcjbpfg?hl=fr&authuser=0)
 
