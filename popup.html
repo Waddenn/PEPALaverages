@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Get Average</title>
+    <style>
+      body {
+        width: 150px;
+        height: 60px;
+        overflow: hidden;
+        color: white;
+        background-color: #161c26;
+        margin: 0;
+        margin: 20px;
+      }
+
+      .bar {
+        height: 20px;
+        background-color: #ddd; 
+        margin: 0 10px 10px 0;
+        position: relative;
+        display: none; 
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 1); 
+        transition: all 0.3s ease-in-out;
+      }
+
+      .bar:hover {
+        transform: translateX(10px);
+      }
+
+      .label {
+        position: absolute;
+        left: 10px;
+        color: #161c26;
+        font-weight: bold;
+        white-space: nowrap;
+        margin-top: 2px; 
+      }
+
+      body.show-stats {
+        width: 310px;
+      }
+      
+      body.show-stats .bar {
+        display: block;
+      }
+      
+      #result {
+        text-align: center;
+        font-size:30px;
+        font-weight: bold;
+        padding-bottom: 5px;
+      }
+      
+      #calculate {
+        background-color: #316e7d; 
+        color: white; 
+        padding: 10px 10px;
+        font-size: 16px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer;
+        padding: 10px;
+        margin-bottom: 5px;
+      }
+
+      #calculate:hover {
+        background-color: #265561;
+      }
+      body {
+      scrollbar-width: thin;  
+      scrollbar-color: #316e7d #161c26; 
+    }
+
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: #161c26;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: #316e7d;
+      border-radius: 20px;
+      border: 3px solid #161c26;
+    }
+
+    </style>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <button id="calculate">Calculate Average</button>
+    <input type="checkbox" id="show-stats-checkbox" checked> Show Stats
+    <div id="result"></div>
+    <div id="stats"></div>
+  </body>
+</html>
