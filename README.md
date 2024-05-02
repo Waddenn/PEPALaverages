@@ -4,4 +4,4 @@
 
 🔗 [Get the extension here](https://chrome.google.com/webstore/detail/pepalaverages/nccddomlinfljbbfdcieiajkkkcjbpfg?hl=fr&authuser=0)
 
-![PepalAverages Interface](https://github.com/Waddenn/PEPALaverages/assets/115143365/6339e0a5-2f17-4594-a2b4-b678d1b68ffb)
+![PepalAverages Interface](https://github.com/Waddenn/PEPALaverages/assets/115143365/df5cd3d6-e090-49c4-ae42-02ce5c778c89)
